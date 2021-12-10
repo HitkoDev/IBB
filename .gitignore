@@ -1,0 +1,16 @@
+data/*
+!data/*/.gitkeep
+logs*
+*.egg-info
+__pycache__
+results
+.eggs
+TrainingOutput
+build
+__pycache__
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+logs

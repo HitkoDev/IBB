@@ -1,0 +1,112 @@
+[
+    {
+        "image_id": "0053.png",
+        "comment": "parially visible, not labelled",
+        "category_id": 1,
+        "bbox": [
+            310.8828,
+            106.1747,
+            326.3545,
+            146.0272
+        ],
+        "score": 0.9975,
+        "segmentation": {
+            "size": [
+                360,
+                480
+            ],
+            "counts": "V^]3:m:>C:E3M1O1000O1O1O1O1I8B>Fe\\f1"
+        },
+        "iou": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+    },
+    {
+        "image_id": "0090.png",
+        "comment": "parially visible, not labelled",
+        "category_id": 1,
+        "bbox": [
+            231.3701,
+            126.1832,
+            242.6787,
+            181.7828
+        ],
+        "score": 0.8966,
+        "segmentation": {
+            "size": [
+                360,
+                480
+            ],
+            "counts": "Rfa29l:;H6K4M5K45L1J:D=Do_c2"
+        },
+        "iou": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+    },
+    {
+        "image_id": "0103.png",
+        "comment": "parially visible, not labelled",
+        "category_id": 1,
+        "bbox": [
+            36.2267,
+            9.8214,
+            55.1098,
+            51.9835
+        ],
+        "score": 0.9798,
+        "segmentation": {
+            "size": [
+                360,
+                480
+            ],
+            "counts": "hP=<j:8H7J5K4M2N2N0100O1O001N3N2L4J9Coge4"
+        },
+        "iou": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+    },
+    {
+        "image_id": "0107.png",
+        "comment": "incorrect label",
+        "category_id": 1,
+        "bbox": [
+            267.4619,
+            68.6705,
+            290.4487,
+            110.438
+        ],
+        "score": 0.9987,
+        "segmentation": {
+            "size": [
+                360,
+                480
+            ],
+            "counts": "\\Yn2`0g:?A4L1O100O1O10O1O001O1O1N2O1O1N3M3L4K6JbRS2"
+        },
+        "iou": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+    },
+    {
+        "image_id": "0185.png",
+        "comment": "parially visible, not labelled",
+        "category_id": 1,
+        "bbox": [
+            296.3294,
+            95.1168,
+            310.2181,
+            126.6748
+        ],
+        "score": 0.9424,
+        "segmentation": {
+            "size": [
+                360,
+                480
+            ],
+            "counts": "RaX33P;6G7E<N11O1N2O1M3K5L5LkPl1"
+        },
+        "iou": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+    }
+]
