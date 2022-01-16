@@ -1,16 +1,17 @@
-import os
-import numpy as np
 import json
-from dataset import DatasetSplit, DatasetRegistry
+import os
+import pickle
+from glob import glob
 from pathlib import Path
 
-import os
-from glob import glob
+import cv2
+import numpy as np
 from pycocotools import mask as cocomask
 
-import cv2
+from dataset import DatasetRegistry, DatasetSplit
 
 __all__ = ["register_awe"]
+
 
 class AWEDataset(DatasetSplit):
     def __init__(self, base_dir, split):
@@ -25,6 +26,15 @@ class AWEDataset(DatasetSplit):
         # Train or validation dataset?
         assert split in ["train", "val"]
         src_dir = os.path.join(base_dir, split)
+        p_img = '{}/images.pkl'.format(src_dir)
+        p_img_dict = '{}/images-dict.pkl'.format(src_dir)
+        if os.path.exists(p_img) and os.path.exists(p_img_dict):
+            with open(p_img, 'rb') as f:
+                self.images = pickle.load(f)
+            with open(p_img_dict, 'rb') as f:
+                self.imagesDict = pickle.load(f)
+            return
+
         annot_dir = os.path.join(base_dir, '{}annot'.format(split))
         bb_dir = os.path.join(base_dir, '{}annot_rect'.format(split))
         mask_dir = os.path.join(base_dir, '{}_masks'.format(split))
@@ -83,7 +93,7 @@ class AWEDataset(DatasetSplit):
                 masks=[str(Path(m).absolute()) for m in masks],
                 objects=len(contours),
                 bbox=np.array(bbox).astype(np.float32),
-                width=w, 
+                width=w,
                 height=h
             )
 
@@ -98,6 +108,10 @@ class AWEDataset(DatasetSplit):
             self.images.append(img)
             self.imagesDict[img['image_id']] = img
 
+        with open(p_img, 'wb') as f:
+            pickle.dump(self.images, f)
+        with open(p_img_dict, 'wb') as f:
+            pickle.dump(self.imagesDict, f)
 
     def training_roidbs(self):
         """
@@ -133,7 +147,7 @@ class AWEDataset(DatasetSplit):
             "is_crowd":np.array([False for j in range(i['objects'])]),
             "segmentation": i["masks"],
             "rle": i['rle']
-         } for i in self.images]
+        } for i in self.images]
 
     def inference_roidbs(self):
         """
@@ -155,7 +169,7 @@ class AWEDataset(DatasetSplit):
             "is_crowd":np.array([False for j in range(i['objects'])]),
             "segmentation": i["masks"],
             "rle": i['rle']
-         } for i in self.images]
+        } for i in self.images]
 
     def eval_inference_results(self, results, output=None):
         """
@@ -196,10 +210,10 @@ class AWEDataset(DatasetSplit):
             tpfn = rle
             tpfp = res["segmentation"]
 
-            prec = cocomask.area(tp)/cocomask.area(tpfp)
+            prec = cocomask.area(tp) / cocomask.area(tpfp)
             p.append(prec)
 
-            rec = cocomask.area(tp)/cocomask.area(tpfn)
+            rec = cocomask.area(tp) / cocomask.area(tpfn)
             r.append(rec)
 
             res['iou'] = iou
@@ -240,9 +254,9 @@ if __name__ == '__main__':
     roidbs = ds.training_roidbs()
     print("#images:", len(roidbs))
 
-    from viz import draw_annotation
-    from tensorpack.utils.viz import interactive_imshow as imshow
     import cv2
+    from tensorpack.utils.viz import interactive_imshow as imshow
+    from viz import draw_annotation
     for r in roidbs:
         im = cv2.imread(r["file_name"])
         vis = draw_annotation(im, r["boxes"], r["class"], r["segmentation"])
