@@ -66,3 +66,14 @@ if __name__ == '__main__':
         mask_path = re.sub(r'\.[^\.]*$', '.npy', path)
         with open(mask_path, 'wb+') as file:
             np.save(file, mask)
+
+        path = p['image_id'].replace('/', '/{}/'.format(cs))
+        path = '{}/{}'.format(args.dataset.replace('awe', 'recognition2'), path)
+
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+
+        cv2.imwrite(path, img)
+        mask_path = re.sub(r'\.[^\.]*$', '.npy', path)
+        with open(mask_path, 'wb+') as file:
+            np.save(file, mask)

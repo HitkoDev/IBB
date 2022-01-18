@@ -4,3 +4,5 @@ opencv-python
 pycocotools
 tensorpack
 scipy
+scikit-image
+imgaug
